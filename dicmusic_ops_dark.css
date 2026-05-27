@@ -1,0 +1,617 @@
+/*
+ * DICMusic OPS Dark adaptation.
+ * Imports the local OPS Green base, then replaces OPS-specific branding and
+ * patches DICMusic-specific Gazelle entries/pages.
+ */
+@import url("./opsdark/static/styles/ops_dark/opsgreen.css");
+
+:root {
+    color-scheme: dark;
+    --dic-bg: #041813;
+    --dic-bg-deep: #07110f;
+    --dic-surface: #10191b;
+    --dic-surface-2: #141f22;
+    --dic-surface-3: #1a272a;
+    --dic-border: #26393d;
+    --dic-border-soft: rgba(102, 214, 186, .18);
+    --dic-text: #b9bdbd;
+    --dic-muted: #80918e;
+    --dic-heading: #edf7f4;
+    --dic-accent: #22d1a5;
+    --dic-accent-2: #20c098;
+    --dic-accent-3: #83e5b5;
+    --dic-danger: #ff7979;
+    --dic-warning: #ffd166;
+    --dic-shadow: 0 18px 50px rgba(0, 0, 0, .32);
+    --dic-soft-shadow: 0 10px 30px rgba(0, 0, 0, .22);
+}
+
+html,
+body {
+    background-color: var(--dic-bg) !important;
+    overscroll-behavior: none;
+}
+
+body {
+    background:
+        radial-gradient(circle at 14% -10%, rgba(34, 209, 165, .18), transparent 30rem),
+        radial-gradient(circle at 88% 0, rgba(131, 229, 181, .12), transparent 24rem),
+        linear-gradient(180deg, var(--dic-bg) 0%, #071713 50%, var(--dic-bg-deep) 100%) !important;
+    background-attachment: fixed !important;
+    color: var(--dic-text) !important;
+}
+
+a {
+    color: #effbf8;
+}
+
+a:hover,
+h2 a:hover,
+h3 a:hover,
+.linkbox a:hover {
+    color: var(--dic-accent) !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+#userform td:not(.label) > strong {
+    color: var(--dic-heading);
+}
+
+h2 a,
+h3,
+h3 a,
+.donation_info_title,
+#musicbrainz_popup #popup_title,
+#musicbrainz_popup #popup_close,
+.noty_buttons a {
+    color: var(--dic-accent) !important;
+}
+
+::selection {
+    background: rgba(34, 209, 165, .36);
+    color: #fff;
+}
+
+/* Replace the embedded OPS logo with DICMusic's official logo. */
+#logo {
+    box-sizing: content-box;
+    height: 56px !important;
+    padding: 8px 8px 10px !important;
+    width: 220px !important;
+}
+
+#logo a,
+#extra5 {
+    background: url("https://dicmusic.com/static/styles/classic/images/logo.png") center / 200px 50px no-repeat !important;
+    filter: drop-shadow(0 10px 24px rgba(0, 0, 0, .28));
+}
+
+#logo > a {
+    display: block !important;
+    height: 100% !important;
+    margin: 0 !important;
+    width: 100% !important;
+}
+
+#logo a:hover {
+    filter: drop-shadow(0 10px 28px rgba(34, 209, 165, .22));
+}
+
+/* Header layout tuned for DICMusic's extra entries: image host, bonus and badge. */
+#header {
+    gap: 4px 10px;
+    padding: 8px 10px 14px;
+}
+
+#userinfo {
+    background: rgba(7, 17, 15, .92) !important;
+    border-bottom: 1px solid rgba(34, 209, 165, .16) !important;
+    box-shadow: 0 2px 18px rgba(0, 0, 0, .24) !important;
+}
+
+#userinfo_username li:not(#nav_userinfo),
+#userinfo_minor li,
+ul#userinfo_username li:not(#nav_userinfo) {
+    background: rgba(10, 20, 19, .98) !important;
+    border-color: var(--dic-border) !important;
+}
+
+#userinfo_username li:not(#nav_userinfo) a,
+#userinfo_minor li a {
+    background-color: rgba(10, 20, 19, .98) !important;
+}
+
+ul#userinfo_username li:not(#nav_userinfo) a {
+    background-image: linear-gradient(270deg, rgba(10, 20, 19, .98), rgba(10, 20, 19, .98) 50.5%, var(--dic-accent) 0, #0d8069) !important;
+}
+
+ul#userinfo_username li#nav_userinfo a,
+#userinfo_username:hover li#nav_userinfo a {
+    background-color: transparent;
+}
+
+ul#userinfo_username:hover li#nav_userinfo a,
+#nav_donate a:hover,
+#nav_invite a:hover,
+#nav_upload a:hover,
+#nav_image a:hover,
+#nav_bonus a:hover {
+    background-color: rgba(34, 209, 165, .1) !important;
+}
+
+#userinfo_minor:hover li:hover a,
+ul#userinfo_username:hover li:not(#nav_userinfo):hover a {
+    color: var(--dic-accent) !important;
+}
+
+#userinfo_stats li:hover,
+#stats_seeding:hover,
+#stats_leeching:hover,
+#stats_ratio:hover,
+#stats_required:hover,
+#fl_tokens:hover,
+.my_demBuffer:hover {
+    background-color: rgba(34, 209, 165, .08);
+}
+
+#userinfo_major a {
+    background-color: transparent;
+}
+
+#userinfo_major a:hover {
+    background-color: rgba(34, 209, 165, .1);
+}
+
+/* DICMusic-only user links. */
+#userinfo_major #nav_image a {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='3' y='5' width='18' height='14' rx='2.4' fill='none' stroke='%2383e5b5' stroke-width='2'/%3E%3Ccircle cx='8.5' cy='10' r='1.8' fill='%2383e5b5'/%3E%3Cpath d='M5 17l4.5-4.6 3.1 3.1 2.4-2.4L19 17' fill='none' stroke='%2383e5b5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+}
+
+#userinfo_major #nav_bonus a {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8.4' fill='none' stroke='%2383e5b5' stroke-width='2'/%3E%3Cpath d='M8.8 13.8c.8 1.3 2.1 2 3.6 2 1.9 0 3.1-.9 3.1-2.3 0-1.7-1.7-2.1-3.2-2.5-1.4-.4-2.5-.7-2.5-1.8 0-1 .9-1.7 2.4-1.7 1.1 0 2.1.4 2.8 1.2' fill='none' stroke='%2383e5b5' stroke-width='1.8' stroke-linecap='round'/%3E%3Cpath d='M12 5.8v12.4' stroke='%2383e5b5' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+}
+
+#userinfo_minor #nav_badge a {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3l2.5 5.1 5.6.8-4.1 4 1 5.6-5-2.6-5 2.6 1-5.6-4.1-4 5.6-.8z' fill='none' stroke='%2383e5b5' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E"), linear-gradient(270deg, #252525, #252525 50%, var(--dic-accent) 0, #0d8069) !important;
+}
+
+/* DICMusic has a #nav_better both in the user panel and in the main menu. */
+#menu #nav_better a {
+    background-image: none !important;
+    text-indent: 0 !important;
+}
+
+#userinfo_major #nav_better a,
+#userinfo_minor #nav_better a {
+    background-image: url("./opsdark/static/styles/assets/icons/Header-Better.svg") !important;
+}
+
+#menu #nav_index {
+    display: inline-block !important;
+}
+
+#menu ul {
+    background: rgba(8, 18, 17, .78);
+    border: 1px solid rgba(34, 209, 165, .12);
+    border-radius: 10px;
+    box-shadow: var(--dic-soft-shadow);
+    padding: 3px;
+}
+
+#menu ul li a {
+    border-radius: 7px;
+}
+
+#chat #nav_irc a,
+#collage #nav_collages a,
+#forums #nav_forums a,
+#index #nav_index a,
+#requests #nav_requests a,
+#rules #nav_rules a,
+#staff #nav_staff a,
+#top10 #nav_top10 a,
+#torrents #nav_torrents a,
+#wiki #nav_wiki a,
+#bonus #nav_bonus a,
+#better #menu #nav_better a,
+#upload #nav_upload a {
+    color: #fff !important;
+}
+
+#searchbars {
+    margin-top: 6px !important;
+}
+
+#searchbars input {
+    background: rgba(13, 27, 26, .92) !important;
+    border-color: rgba(34, 209, 165, .16) !important;
+    color: #d8e7e3 !important;
+}
+
+#searchbars input:focus,
+input[type=email]:focus,
+input[type=number]:focus,
+input[type=password]:focus,
+input[type=search]:focus,
+input[type=text]:focus,
+input[type=url]:focus,
+select:focus,
+textarea:focus {
+    background: linear-gradient(90deg, rgba(16, 41, 36, .98), rgba(18, 35, 43, .98)) !important;
+    border-color: rgba(34, 209, 165, .58) !important;
+    box-shadow: 0 0 0 3px rgba(34, 209, 165, .09), inset 1px 2px 4px rgba(0, 0, 0, .34) !important;
+    color: #fff !important;
+}
+
+#content {
+    background: rgba(10, 18, 18, .86) !important;
+    border-color: rgba(34, 209, 165, .14) !important;
+    border-radius: 12px;
+    box-shadow: var(--dic-shadow) !important;
+}
+
+.sidebar .box,
+.vertical_space.box,
+.box,
+.box2,
+.inbox_message,
+table.forum_post,
+#artist_information,
+#filter_form,
+#torrents .filter_torrents,
+#torrents .edit_form,
+#torrents .torrent_description,
+#upload #content > div,
+#reports .box,
+#staff .box,
+.users_reports_table {
+    background: var(--dic-surface) !important;
+    border-color: var(--dic-border-soft) !important;
+    border-radius: 10px;
+    box-shadow: var(--dic-soft-shadow) !important;
+}
+
+.box .head,
+.box2 .head,
+.sidebar .box .head,
+.news_post .head,
+.inbox_message .head,
+.vertical_space.box .head,
+table.forum_post .colhead_dark td {
+    background: linear-gradient(180deg, #162426 0%, #0d1718 100%) !important;
+    border-color: rgba(34, 209, 165, .16) !important;
+    color: #d9fff4 !important;
+}
+
+.pad,
+.body,
+.news_post .pad,
+.profileinfo,
+.wiki_article,
+.box_request_desc,
+.comment {
+    color: var(--dic-text);
+}
+
+.box_image img,
+.news_post img,
+.wiki_article img,
+.body img,
+.scale_image {
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .26);
+    max-width: 100%;
+}
+
+#index .main_column {
+    display: block;
+}
+
+#index .news_post,
+#index .sitehistory_event_container {
+    overflow: hidden;
+}
+
+#index .news_post .head {
+    line-height: 1.55;
+}
+
+#index .sidebar .box:not(.box_image) ol,
+#index .sidebar .box:not(.box_image) ul {
+    padding-left: 12px;
+}
+
+#global_notification,
+.global_notification,
+#global_buffs,
+.global_buffs,
+.alertbar,
+.save_message,
+.error_message,
+.warning_message {
+    background: linear-gradient(180deg, rgba(34, 209, 165, .13), rgba(13, 24, 24, .95)) !important;
+    border: 1px solid rgba(34, 209, 165, .26) !important;
+    border-radius: 10px;
+    box-shadow: var(--dic-soft-shadow);
+    color: #e9fff9 !important;
+}
+
+.error_message,
+.invalid,
+.ratio_watch,
+.warning {
+    color: var(--dic-warning) !important;
+}
+
+/* Torrent/group listings, including DICMusic edition rows and grouped results. */
+#better table,
+#inbox #messageform table,
+#log_table,
+#rules table,
+#top10 .torrent_table,
+#torrents .vote_matches_table,
+#upload #dnulist,
+#userhistory table:not(.forum_post):not(.users_reports_table),
+.collage_table,
+.forum_list.border,
+.request_table,
+.torrent_table,
+.users_reports_table,
+.wiki_log_table,
+table.staff,
+.bonus_table,
+.badge_table {
+    background: var(--dic-surface) !important;
+    border: 1px solid var(--dic-border-soft) !important;
+    border-radius: 10px;
+    border-spacing: 0;
+    box-shadow: var(--dic-soft-shadow) !important;
+    overflow: hidden;
+}
+
+.torrent_table tr,
+.request_table tr,
+.collage_table tr,
+.forum_list.border tr,
+.users_reports_table tr,
+.wiki_log_table tr,
+table.staff tr,
+.bonus_table tr,
+.badge_table tr {
+    border-color: rgba(34, 209, 165, .09) !important;
+}
+
+.torrent_table .rowa,
+.request_table .rowa,
+.collage_table .rowa,
+.forum_list.border .rowa,
+.users_reports_table .rowa,
+.wiki_log_table .rowa,
+table.staff .rowa,
+.bonus_table .rowa,
+.badge_table .rowa {
+    background: #111b1d !important;
+}
+
+.torrent_table .rowb,
+.request_table .rowb,
+.collage_table .rowb,
+.forum_list.border .rowb,
+.users_reports_table .rowb,
+.wiki_log_table .rowb,
+table.staff .rowb,
+.bonus_table .rowb,
+.badge_table .rowb {
+    background: #132022 !important;
+}
+
+.torrent_table tr:hover,
+.request_table tr:hover,
+.collage_table tr:hover,
+.forum_list.border tr:hover,
+.bonus_table tr:hover,
+.badge_table tr:hover {
+    background: rgba(34, 209, 165, .075) !important;
+}
+
+.torrent_table tr.colhead_dark td,
+.torrent_table tr.colhead td,
+.request_table tr.colhead_dark td,
+.request_table tr.colhead td,
+.collage_table tr.colhead_dark td,
+.collage_table tr.colhead td,
+.forum_list.border tr.colhead_dark td,
+.forum_list.border tr.colhead td,
+.bonus_table tr.colhead_dark td,
+.bonus_table tr.colhead td,
+.badge_table tr.colhead_dark td,
+.badge_table tr.colhead td,
+.colhead_dark,
+.colhead {
+    background: linear-gradient(180deg, #182a2c 0%, #0f1a1b 100%) !important;
+    color: #e7fff8 !important;
+}
+
+.torrent_table .group,
+.torrent_table .group_torrent,
+.torrent_table .edition,
+.torrent_table .edition_info,
+.torrent_table .torrent,
+.group_torrent,
+.edition_info,
+.torrentdetails,
+.group_info {
+    border-color: rgba(34, 209, 165, .1) !important;
+}
+
+.edition_info,
+.torrent_table .edition_info,
+.group_torrent_header {
+    background: rgba(34, 209, 165, .055) !important;
+    color: #a6cfc6 !important;
+}
+
+.torrent_table .group_info,
+.torrent_table .torrent_info,
+.group_info,
+.torrent_info,
+.tags,
+.tags a {
+    color: #9fcac1 !important;
+}
+
+.torrent_table .tags a:hover,
+.tags a:hover {
+    color: var(--dic-accent-3) !important;
+}
+
+.add_bookmark,
+.remove_bookmark,
+.bookmarklink_torrent,
+[id^="bookmarklink_torrent"] {
+    filter: hue-rotate(110deg) saturate(120%) brightness(92%);
+}
+
+.cats_col,
+.cats_music,
+[class^="cat_"] {
+    filter: saturate(90%) brightness(90%);
+}
+
+.freeleech,
+.neutralleech,
+.reported,
+.snatched,
+.seeding,
+.leeching,
+.torrent_free,
+.torrent_neutral {
+    border-radius: 4px;
+}
+
+.freeleech,
+.torrent_free {
+    color: var(--dic-accent-3) !important;
+}
+
+/* DICMusic upload/image/bonus/badge pages. */
+#upload #content > div,
+#upload #dnulist,
+#image_upload,
+#upload_box,
+#bonus .box,
+#badges .box,
+.badge,
+.badge_icon,
+.bonus_store,
+.bonus_shop {
+    border-color: var(--dic-border-soft) !important;
+}
+
+#bonus .box,
+#badges .box,
+.badge {
+    background: linear-gradient(180deg, var(--dic-surface-2), var(--dic-surface)) !important;
+}
+
+.badge img,
+.badge_icon img {
+    border-radius: 999px;
+    box-shadow: 0 0 0 1px rgba(34, 209, 165, .22), 0 10px 22px rgba(0, 0, 0, .26);
+}
+
+button,
+input[type=button],
+input[type=submit],
+.button,
+a.button {
+    background: linear-gradient(180deg, #172426 0, #203639 2px, #122124 100%) !important;
+    border-color: rgba(34, 209, 165, .24) !important;
+    color: #d3e7e2 !important;
+}
+
+button:hover,
+input[type=button]:hover,
+input[type=submit]:hover,
+.button:hover,
+a.button:hover {
+    background: linear-gradient(180deg, #1c3133 0, #254246 2px, #162a2d 100%) !important;
+    border-color: rgba(34, 209, 165, .44) !important;
+    color: #fff !important;
+}
+
+select,
+input[type=email],
+input[type=number],
+input[type=password],
+input[type=search],
+input[type=text],
+input[type=url],
+textarea {
+    background: #0c1516 !important;
+    border-color: rgba(34, 209, 165, .13) !important;
+    color: #d1ddd9 !important;
+}
+
+.sidebar .box input[type=email],
+.sidebar .box input[type=number],
+.sidebar .box input[type=password],
+.sidebar .box input[type=search],
+.sidebar .box input[type=text],
+.sidebar .box input[type=url],
+.sidebar .box select,
+.sidebar .box textarea {
+    background-color: #0b1415 !important;
+}
+
+#back-to-top-btn,
+#toplink,
+.toplink {
+    background: rgba(10, 23, 22, .9) !important;
+    border: 1px solid rgba(34, 209, 165, .24) !important;
+    border-radius: 999px;
+    box-shadow: var(--dic-soft-shadow);
+    color: var(--dic-accent) !important;
+}
+
+#back-to-top-btn:hover,
+#toplink:hover,
+.toplink:hover {
+    background: rgba(34, 209, 165, .16) !important;
+    color: #fff !important;
+}
+
+#footer {
+    color: var(--dic-muted);
+}
+
+#footer a {
+    color: #bfeee2;
+}
+
+@media only screen and (max-width: 789px) {
+    #header {
+        padding: 4px 5px 8px;
+    }
+
+    #logo {
+        width: 200px !important;
+    }
+
+    #userinfo_major,
+    #userinfo_stats,
+    #userinfo_username,
+    #userinfo_minor {
+        flex: 1 1 auto;
+    }
+
+    #content {
+        border-radius: 0;
+        box-shadow: none !important;
+    }
+}
